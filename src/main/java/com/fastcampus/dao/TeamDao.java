@@ -8,9 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
+@Component
 public class TeamDao {
-  public static void insertTeam(Integer stadiumId, String name) {
+  public void insertTeam(Integer stadiumId, String name) {
     String sql = "INSERT INTO TEAM (stadium_id, name) VALUES (?, ?)";
 
     try (Connection conn = DBConnection.getConnection();
@@ -30,7 +32,7 @@ public class TeamDao {
     }
   }
 
-  public static List<Team> selectAll() {
+  public List<Team> selectAll() {
     List<Team> teamList = new ArrayList<>();
 
     String sql =
