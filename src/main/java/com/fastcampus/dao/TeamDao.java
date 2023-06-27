@@ -35,8 +35,7 @@ public class TeamDao {
   public List<Team> selectAll() {
     List<Team> teamList = new ArrayList<>();
 
-    String sql =
-        "SELECT s.name t.name t.created_at FROM team t JOIN stadium s ON s.id = t.stadium_id";
+    String sql = "SELECT * FROM team t";
 
     ResultSet rs = null;
 
@@ -44,20 +43,18 @@ public class TeamDao {
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
       rs = pstmt.executeQuery();
 
-      while (!rs.next()) {
-        System.out.println(rs.getRow());
+      while (rs.next()) {
+        teamList.add(
+            new Team(
+                rs.getInt("id"),
+                rs.getInt("stadium_id"),
+                rs.getString("name"),
+                rs.getTimestamp("created_at")));
       }
     } catch (SQLException e) {
       e.printStackTrace();
-    } finally {
-      try {
-        if (rs != null && !rs.isClosed()) {
-          rs.close();
-        }
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
     }
+
     return teamList;
   }
 }

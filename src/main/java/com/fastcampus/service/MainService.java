@@ -4,6 +4,7 @@ import com.fastcampus.model.Team;
 import com.fastcampus.repository.PlayerRepository;
 import com.fastcampus.repository.StadiumRepository;
 import com.fastcampus.repository.TeamRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,9 @@ public class MainService {
       case "팀등록" -> {
         System.out.println(registerTeam(Integer.parseInt(args[1]), args[2]));
       }
-      case "팀목록" -> {}
+      case "팀목록" -> {
+        getTeamList().forEach(System.out::println);
+      }
         // 선수등록?teamId=1&name=이대호&position=1루수
       case "선수등록" -> {
         Integer teamId = Integer.parseInt(args[1]);
@@ -57,5 +60,9 @@ public class MainService {
     Team team = new Team(stadiumId, name);
     teamRepository.save(team);
     return "성공";
+  }
+
+  private List<Team> getTeamList() {
+    return teamRepository.findAll();
   }
 }
