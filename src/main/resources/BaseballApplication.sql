@@ -112,7 +112,7 @@ select t.name '팀이름', p.position '포지션', p.name '선수명'
 from player p
          join team t on p.team_id = t.id;
 
-# 피벗테이블 출력
+# 소속별 피벗테이블 출력
 select t.name                                            '소속',
        max(case when p.position = '투수' then p.name end)  '투수',
        max(case when p.position = '포수' then p.name end)  '포수',
@@ -126,4 +126,14 @@ select t.name                                            '소속',
 from player p
          right outer join team t on p.team_id = t.id
 group by t.name
+;
+
+select p.position                                   '포지션',
+       max(case when t.name = 'NC' then p.name end) 'NC',
+       max(case when t.name = '두산' then p.name end) '두산',
+       max(case when t.name = '롯데' then p.name end) '롯데'
+from team t
+         right outer join player p
+                          on p.team_id = t.id
+group by p.position
 ;
