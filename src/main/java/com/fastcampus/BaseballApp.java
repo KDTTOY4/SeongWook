@@ -1,15 +1,14 @@
 package com.fastcampus;
 
 import com.fastcampus.dbconnection.DBInitializer;
-import com.fastcampus.service.*;
+import com.fastcampus.service.MainService;
+import java.util.Arrays;
+import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-
-import java.util.Arrays;
-import java.util.Scanner;
 
 @SpringBootApplication
 public class BaseballApp {
@@ -32,7 +31,7 @@ public class BaseballApp {
     while (true) {
       String[] args = parseCommand(inputRequest());
 
-      if ("EXIT".equals(args[0].toLowerCase())) break;
+      if ("EXIT".equalsIgnoreCase(args[0])) break;
 
       // TODO : Request Validation (사용자 요청 유효성 검사)
 
